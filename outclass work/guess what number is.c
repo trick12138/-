@@ -7,8 +7,8 @@ int main()
     srand((unsigned)time(NULL));   //随机播种
     a=rand() % 10;    //取一随机数
     printf("guess what the number is(0-9)?\n");
-    scanf("%d",&b);
-    if (b==a)
+    scanf("%d",&b);   //猜数字
+    if (b==a)    //判断
     {
         printf("congratulations!");
     }
