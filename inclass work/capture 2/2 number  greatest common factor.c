@@ -1,12 +1,16 @@
 #include<stdio.h>
 int main()
 {
+    //声明三个变量
     long long int a,b,c;
+    //输入三个变量
     scanf("%I64d,%I64d",&a,&b);
+    //寻找更小的数以便化简判断
     if (a>b)
       c=b+1;
     else
       c=a+1;
+    //循环寻找最大公因数
     while (c!=0)
     {
         c=c-1;
