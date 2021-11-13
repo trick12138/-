@@ -3,12 +3,11 @@
 #include <time.h>
 int main()
 {
-    int a,c=0,d=0;
-    srand((unsigned)time(NULL));
-    a = rand() % 10;
-    int b;
+    int a,b,d=0;    //声明变量
+    srand((unsigned)time(NULL));    //随机播种
+    a = rand() % 10;    //取一随机数
     printf("guess what the number is(0-9)?\n");
-    while (c <= 1)
+    while (0)    //一直循环
     {
         scanf("%d", &b);
         if (b == a)
