@@ -7,7 +7,7 @@ int main()
     srand((unsigned)time(NULL));    //随机播种
     a = rand() % 10;    //取一随机数
     printf("guess what the number is(0-9)?\n");
-    while (0)    //一直循环
+    while (1)    //一直循环
     {
         scanf("%d", &b);
         if (b == a)
