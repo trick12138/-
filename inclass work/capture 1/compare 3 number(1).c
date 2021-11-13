@@ -1,11 +1,14 @@
 #include<stdio.h>
 int main()
 {
+    //声明参数
     int a;
     int b;
     int c;
     int max;
+    //输入abc三个数
     scanf("%d,%d,%d",&a,&b,&c);
+    //判断谁更大
     if(a>b)
       if(a>c)
       max=a;
@@ -16,5 +19,6 @@ int main()
       max=b;
       else
       max=c;
-    return max;
+    //返回max
+    return max;  
 }

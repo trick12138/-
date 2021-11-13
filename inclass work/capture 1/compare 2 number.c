@@ -9,7 +9,7 @@ int main ()
     printf("max=%d\n",c);
     return 0;
 }
-//bigger
+//比较两个数大小
 int max(int x,int y)
 {
     int z;
