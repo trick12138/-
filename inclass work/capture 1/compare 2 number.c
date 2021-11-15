@@ -1,5 +1,5 @@
 #include<stdio.h>
-//主函
+//主函数
 int main ()
 {
     int max(int x,int y);
