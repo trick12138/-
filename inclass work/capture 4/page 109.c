@@ -1,8 +1,8 @@
 #include<stdio.h>
 int main()
 {
-    int a,b,c,e,f;//a输入,b储存a的个位,c和e储存倒过来的a,f用来计数
-    scanf("%d",&a);
+    long int a,b,c,e,f;//a输入,b储存a的个位,c和e储存倒过来的a,f用来计数
+    scanf("%ld",&a);
     while (a != 0)//判断a为0时停止循环
     {
         //计算个位
