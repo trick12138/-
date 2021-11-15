@@ -1,3 +1,2 @@
-没啥好说的
-真的
-真的真的
+#备份我的c语言作业
+[c-learning](https://github.com/trick12138/c-learning"c语言学习内容")
