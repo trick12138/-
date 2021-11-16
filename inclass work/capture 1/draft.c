@@ -1,5 +1,5 @@
 #include<stdio.h>
 int main()
 {
-    printf("%f",4.0/3.0);
+    printf("%d",-5 & 6);
 }
