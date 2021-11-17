@@ -1,11 +1,22 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-
-/* run this program using the console pauser or add your own getch, system("pause") or input loop */
-
-int main(int argc, char *argv[]) {
-    int a;
-    printf("%d\n",a = 65432/pow(10,4));
-    printf("%d\n",a=pow(10,1));
+#include<stdio.h>
+int main()
+{
+    int a,i = 0,b = 0,c,d;
+    scanf("%d",&a);
+    while(a>0)
+    {
+    b = b * 10 + a % 10;
+    a = a / 10;
+    i++;
+    }
+    printf("%d位数\n", i);
+    c = b;
+    while(c>0)
+    {
+    d = c % 10;
+    c = c / 10;
+    printf("%d\n",d);
+    }
+    printf("%d", b);
+    return 0;
 }
