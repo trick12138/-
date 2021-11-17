@@ -5,8 +5,8 @@ int main()
     for ( i = 0; i <= 20; i++)
     {
         a+=b;
-        printf("%d\n",a);
         b+=a;
+        printf("%d\n",a);
         printf("%d\n",b);
     }
     return 0;
