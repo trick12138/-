@@ -1,23 +1,19 @@
-#include<stdio.h>
-#include<math.h>
+#include<stdio.h> 
 int main()
 {
-    //声明变量
-    int a,b;
-    a=1;
-    //从2开始寻找质数
-    while (a<=100000)//此处为最大的值
-    {
-        a=a+1;
-        b=a;
-       while (b!=1)
-       {
-           b=b-1;
-           if (a%b==0)
-           break;
-           else
-             if (b==2)
-             printf(" %d",a);
-       }
-    }
+ int sth;
+ scanf("%c",&sth);
+ if(sth>='0'&&sth<='9')
+  {
+  	printf("sth是一个数字");
+  }
+ if(sth>='A'&&sth<='Z')
+ {
+ 	printf("sth是一个大写字母");
+ }
+ if(sth>='a'&&sth<='z')
+ {
+ 	printf("sth是一个小写字母");
+ }
+ return 0;
 }
