@@ -2,9 +2,9 @@
 int main()
 {
     //声明三个变量
-    long long int a,b,c;
+    int a,b,c;
     //输入三个变量
-    scanf("%I64d,%I64d",&a,&b);
+    scanf("%d,%d",&a,&b);
     //寻找更小的数以便化简判断
     if (a>b)
       c=b+1;
@@ -16,7 +16,7 @@ int main()
         c=c-1;
         if (a%c==0&&b%c==0)
         {
-            printf("%I64d",c);
+            printf("%d",c);
             break;
         }
         else
