@@ -27,23 +27,27 @@ int main()
 void yuefen(long long int *a,long long int *b)
 {
     //声明三个变量
-    long long int c,m,n;
+    long long int c;
     //寻找更小的数以便化简判断
     if (*a>*b)
       c=*b+1;
     else
       c=*a+1;
     //循环寻找最大公因数
-    m = *a;
-    n = *b;
-    do
+    while (c!=0)
     {
-        c = m % n;
-        m = n;
-        n = c;
+        c=c-1;
+        if (*a%c==0&&*b%c==0)
+        {
+            break;
+        }
+        else
+        {
+            if (c==1)
+            printf("no!");
+        }
     }
-    while (n);
     //把a,b约分
-    *a = *a/m;
-    *b = *b/m;
+    *a = *a/c;
+    *b = *b/c;
 }
