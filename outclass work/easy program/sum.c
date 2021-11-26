@@ -1,3 +1,6 @@
+/*
+事情是这样的,书上有道
+*/
 #include <stdio.h>
 void yuefen(long long int *a,long long int *b);
 int main()
