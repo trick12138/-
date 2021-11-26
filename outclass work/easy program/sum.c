@@ -15,7 +15,7 @@ int main()
         d = c;//3
         c = e;//5
         i++;
-        printf("第%d次结果为%d/%d\n",i+1,a,b);
+        printf("第%d次结果为%lld/%lld\n",i+1,a,b);
     }
     printf("二十项之和为%lld/%lld",a,b);
     return 0;
