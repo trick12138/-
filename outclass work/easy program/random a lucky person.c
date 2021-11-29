@@ -7,7 +7,7 @@ int main()
     int a;
     while (1)
     {
-        a = rand()%44;
+        a = rand()%45;
         if (a == 0 || a == 42 || a == 43 || a == 40 || a == 39 || a == 45 || a == 35)
             continue;
         else
