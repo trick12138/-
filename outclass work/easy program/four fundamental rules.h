@@ -2,12 +2,6 @@
 char *sum(char *pa,char *pb);
 char str3[100];
 char str4[100];
-int main()
-{
-    
-    return 0;
-}
-
 //四则运算,加法
 char *sum(char *pa,char *pb)
 {
@@ -50,12 +44,12 @@ char *sum(char *pa,char *pb)
         }
     }
     //检查pa
-    printf("pa的倒数为");
+/*     printf("pa的倒数为");
     for (;p1>=0;p1--)
     {
         printf("%c",*(pa + p1 - 1));
     }
-    printf("\n");
+    printf("\n"); */
     //b[]的倒数
     p1 = j;
     a2 = j;//a2为后续pb位数
@@ -83,12 +77,12 @@ char *sum(char *pa,char *pb)
         }
     }
     //检查pb
-    printf("pb的倒数为");
+/*     printf("pb的倒数为");
     for (;p1>0;p1--)
     {
         printf("%c",*(pb + p1));
     }
-    printf("\n");
+    printf("\n"); */
     //相加
     i=0;//重新初始化
     //补0
@@ -131,9 +125,9 @@ char *sum(char *pa,char *pb)
         *(pd + i) = '0';
         i++;
     }
-    printf("\n");
+/*     printf("\n"); */
     //检查pa
-    printf("pa为");
+/*     printf("pa为");
     for (;a4>=0;a4--)
     {
         printf("%c",*(pa + a4));
@@ -145,7 +139,7 @@ char *sum(char *pa,char *pb)
     {
         printf("%c",*(pb + a5));
     }
-    printf("\n");
+    printf("\n"); */
     //相加
     a4 = a3 + 1;
     a5 = a3 + 1;//这俩用来计数
@@ -154,13 +148,11 @@ char *sum(char *pa,char *pb)
         if ((*(pa + i) + *(pb + i)-'0')>='0' && (*(pa + i) + *(pb + i)-'0')<='9')
         {
             *(pc + i) = *(pa + i) + *(pb + i) - '0';
-            printf("a");
         }
         else
         {
             *(pc + i) = *(pa + i) + *(pb + i) - ':';
             *(pd + i + 1) = '1';
-            printf("b");
         }
     }
     for (i = 0;i <= a4;i++)
@@ -168,13 +160,13 @@ char *sum(char *pa,char *pb)
         *(pc + i) = *(pc + i) + *(pd + i) - '0';
     }
     //检查和
-    printf("\na4=%d",a4);
+/*     printf("\na4=%d",a4);
     printf("\npc为");
     for (i = 0;i <= a4;i++)
     {
         printf("%c",*(pc + i));
     }
-    printf("\n");
+    printf("\n"); */
     //初始化
     j = 0,d1 = 0;
     //寻求pc位数
@@ -207,12 +199,12 @@ char *sum(char *pa,char *pb)
         }
     }
     //再次检查和
-    printf("\na4=%d",a4);
+/*     printf("\na4=%d",a4);
     printf("\npc倒过来为");
     for (i = 0;i <= a4;i++)
     {
         printf("%c",*(pc + i));
     }
-    printf("\n");
+    printf("\n"); */
     return pc;
 }
