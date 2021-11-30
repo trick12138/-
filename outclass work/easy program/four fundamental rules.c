@@ -6,7 +6,6 @@ int main()
 {
     char str1[100] = "87654321";
     char str2[100] = "9999999";
-    char *pd = sum(str1,str2);
     printf("str3=%s",str3);
 }
 
@@ -51,13 +50,6 @@ char *sum(char *pa,char *pb)
             d1++;
         }
     }
-    //检查pa
-    printf("pa的倒数为");
-    for (;p1>=0;p1--)
-    {
-        printf("%c",*(pa + p1 - 1));
-    }
-    printf("\n");
     //b[]的倒数
     p1 = j;
     a2 = j;//a2为后续pb位数
@@ -84,13 +76,6 @@ char *sum(char *pa,char *pb)
             d1++;
         }
     }
-    //检查pb
-    printf("pb的倒数为");
-    for (;p1>0;p1--)
-    {
-        printf("%c",*(pb + p1));
-    }
-    printf("\n");
     //相加
     i=0;//重新初始化
     //补0
@@ -133,21 +118,6 @@ char *sum(char *pa,char *pb)
         *(pd + i) = '0';
         i++;
     }
-    printf("\n");
-    //检查pa
-    printf("pa为");
-    for (;a4>=0;a4--)
-    {
-        printf("%c",*(pa + a4));
-    }
-    printf("\n");
-    //检查pb
-    printf("pb为");
-    for (;a5>=0;a5--)
-    {
-        printf("%c",*(pb + a5));
-    }
-    printf("\n");
     //相加
     a4 = a3 + 1;
     a5 = a3 + 1;//这俩用来计数
@@ -156,27 +126,17 @@ char *sum(char *pa,char *pb)
         if ((*(pa + i) + *(pb + i)-'0')>='0' && (*(pa + i) + *(pb + i)-'0')<='9')
         {
             *(pc + i) = *(pa + i) + *(pb + i) - '0';
-            printf("a");
         }
         else
         {
             *(pc + i) = *(pa + i) + *(pb + i) - ':';
             *(pd + i + 1) = '1';
-            printf("b");
         }
     }
     for (i = 0;i <= a4;i++)
     {
         *(pc + i) = *(pc + i) + *(pd + i) - '0';
     }
-    //检查和
-    printf("\na4=%d",a4);
-    printf("\npc为");
-    for (i = 0;i <= a4;i++)
-    {
-        printf("%c",*(pc + i));
-    }
-    printf("\n");
     //初始化
     j = 0,d1 = 0;
     //寻求pc位数
@@ -208,13 +168,16 @@ char *sum(char *pa,char *pb)
             d1++;
         }
     }
-    //再次检查和
-    printf("\na4=%d",a4);
-    printf("\npc倒过来为");
-    for (i = 0;i <= a4;i++)
-    {
-        printf("%c",*(pc + i));
-    }
-    printf("\n");
     return pc;
+}
+
+//四则运算乘法
+char *mul(char *pa,char *pb)
+{
+    for (int i = 0; i < count; i++)
+    {
+        /* code */
+    }
+    
+
 }
