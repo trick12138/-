@@ -4,10 +4,8 @@ char str3[100];
 char str4[100];
 int main()
 {
-    char str1[100] = "87654321";
-    char str2[100] = "9999999";
-    char *pd = sum(str1,str2);
-    printf("str3=%s",str3);
+    
+    return 0;
 }
 
 //四则运算,加法

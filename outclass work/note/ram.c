@@ -13,7 +13,7 @@ int main()
     {
         *(pa + i) = i * 10;
     }
-    for (int i = 0; i <= n; i++)
+    for (int i = 0; i < n; i++)
     {
         printf("%d ",*(pa + i));
     }
@@ -25,15 +25,16 @@ int main()
     }
     //reallco 可以改变动态内存大小
     char *pc = (char*)realloc(pb,sizeof(char) * (n + 1));
-    for (int i = 0; i < (n + 1) ; i++)
+    for (int i = 0; i < n ; i++)
     {
         printf("%d ",*(pc + i));
     }
+    printf("\n");
     //free 用于释放内存
     free(pa);
     free(pb);
     //内存操作函数
-    //memccpy
+    //memccpy函数
     //定义一个结构体
     typedef struct ram
     {
@@ -43,6 +44,16 @@ int main()
     ram1 node1 = {1,'A'},node2;
     memcpy(&node2,&node1,sizeof(ram1));
     char *pd = (char*)&node2;
-    printf("第一个为%d,第二个为%c",*(pd + 0),*(pd + 4));
+    printf("第一个为%d,第二个为%c\n",*(pd + 0),*(pd + 4));
+    //memmove函数用法和memcpy类似
+    //memmove(void *_Dst,const void *_Src, size_t);
+
+    //memchr用于查找字符，返回指针,找不到返回null
+    char *pe = (char*)memchr(pa,'(',sizeof(char) * n);
+    printf("pe=%d\n",pe);
+
+    //memset设置内存
+    memset(pd,'h',5);
+    printf("pd=%s",pd);
     return 0;
 }
