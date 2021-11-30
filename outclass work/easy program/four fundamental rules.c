@@ -1,12 +1,16 @@
 #include <stdio.h>
+#include <string.h>
 char *sum(char *pa,char *pb);
+char *mul(char *pa,char *pb);
 char str3[100];
 char str4[100];
 int main()
 {
     char str1[100] = "87654321";
     char str2[100] = "9999999";
-    printf("str3=%s",str3);
+    char *pa = str1;
+    char *pb = str2;
+    mul(pa,pb);
 }
 
 //四则运算,加法
@@ -174,10 +178,109 @@ char *sum(char *pa,char *pb)
 //四则运算乘法
 char *mul(char *pa,char *pb)
 {
-    for (int i = 0; i < count; i++)
+    int i=0,j=0,p1,p2,d1=0,a1,a2,a3;
+    char c;
+    char *pc = str3;//str3用来终结循环
+    char *pd = str4;//str4用来记录相乘的值
+    //寻找位数
+    while (*(pa+i) != '\0')
     {
-        /* code */
+        i++;
     }
-    
+    while (*(pb+j) != '\0')
+    {
+        j++;
+    }
+    //a[]的倒数
+    p1 = i;
+    a1 = i;//a1为后续pa位数
+    if (i & 1 == 1)//字符串为单数位数
+    {
+        while (i != (p1+1)/2-1)
+        {
+            c = *(pa + i - 1);//c=9
+            *(pa + i - 1) = *(pa + d1);//0换8 1换7 2换6 3换5 4换4
+            *(pa + d1) = c;
+            i--;
+            d1++;
+        }
+    }
+    else//字符串为双数位数
+    {
+        while (i != p1/2)
+        {
+            c = *(pa + i - 1);
+            *(pa + i - 1) = *(pa + d1);
+            *(pa + d1) = c;
+            i--;
+            d1++;
+        }
+    }
+    //b[]的倒数
+    p1 = j;
+    a2 = j;//a2为后续pb位数
+    d1 = 0;//重新初始化
+    if (j & 1 == 1)//字符串为单数位数
+    {
+        while (j != (p1+1)/2)
+        {
+            c = *(pb + j - 1);
+            *(pb + j - 1) = *(pb + d1);
+            *(pb + d1) = c;
+            j--;
+            d1++;
+        }
+    }
+    else//字符串为双数位数
+    {
+        while (j != p1/2)
+        {
+            c = *(pb + j - 1);
+            *(pb + j - 1) = *(pb + d1);
+            *(pb + d1) = c;
+            j--;
+            d1++;
+        }
+    }
+    //补0
+    i = 0;
+    a3 = sizeof(pc);
+    while (i < (a3 + 1))
+    {
+        if (*(pc+i) >= '0' && *(pc+i) <= '9')
+        {
+            i++;
+            continue;
+        }
+        else
+        {
+            *(pc+i) = '0';
+            i++;
+        }
+    }
+    printf("pc=%s",pc);
+    //乘法
+    i = 0;
+    printf("%d",pa);
+    for (;strcmp(pa,pc);)
+    {
+        //循环相加
 
+        //记录循环次数
+        *pc += 1;
+        char *pc1 = strchr(pc,':');
+        memset(pc1,'0',sizeof(str3));
+        while(*(pc1 + i) == ':')
+        {
+            *(pc1 + i) = '0';
+            if (*(pc1+i+1) != ':')
+            {
+                *(pc1 + i +1) += 1;
+                break;
+            }
+        i++;
+        }
+    }
+    printf("%s",str3);
+    return pd;
 }
