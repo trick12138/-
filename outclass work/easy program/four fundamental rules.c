@@ -323,10 +323,7 @@ char *mul(char *pa,char *pb)
         }
         j++;
     }
-    printf("%s\n",pa);
-    printf("%s\n",str3);
-    printf("%d\n",j);
-    printf("pb1=%s\n",pb1);
+    printf("相乘的结果=%s\n",pb1);
     pd = pb1;
     return pd;
 }
