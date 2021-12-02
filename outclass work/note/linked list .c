@@ -74,6 +74,19 @@ void insertByAppoin(struct Node *headNode,int data,int posData)
     }
 
 }
+//表头法删除
+void deleteNodeByHead(struct Node *headNode)
+{
+    struct Node *nextNode = headNode ->next;
+    if (nextNode == NULL)
+    {
+        printf("链表为NULL,无法删除");
+        return;
+    }
+    
+    headNode->next = nextNode ->next;
+    free(nextNode);
+}
 //打印链表
 void printList(struct Node *headNode)
 {
@@ -107,6 +120,9 @@ int main()
     printList(List);
     //测试任意位置插入
     insertByAppoin(List,-100,-1);
+    printList(List);
+    //测试表头法删除
+    deleteNodeByHead(List);
     printList(List);
     //结束
     system("pause");

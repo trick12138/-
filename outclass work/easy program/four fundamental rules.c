@@ -4,6 +4,10 @@ char *sum(char *pa,char *pb);
 char *mul(char *pa,char *pb);
 char str3[100];
 char str4[100];
+char str5[100];
+char str6[100];
+char str7[100];
+char *pc1 = str5;//pc1操作str5来计数
 int main()
 {
     char str1[100] = "87654321";
@@ -172,7 +176,8 @@ char *sum(char *pa,char *pb)
             d1++;
         }
     }
-    return pc;
+    pc1 = pc;
+    return pc1;
 }
 
 //四则运算乘法
@@ -180,8 +185,8 @@ char *mul(char *pa,char *pb)
 {
     int i=0,j=0,p1,p2,d1=0,a1,a2,a3;
     char c;
-    char *pc = str3;//str3用来终结循环
-    char *pd = str4;//str4用来记录相乘的值
+    char *pc = str5;//str5用来终结循环
+    char *pd = str7;//str7用来记录相乘的值
     //寻找位数
     while (*(pa+i) != '\0')
     {
@@ -243,13 +248,17 @@ char *mul(char *pa,char *pb)
         }
     }
     //乘法
-    i = 0;
-    char *pc1 = str3;//pc1操作str3来计数
+    i = 0,j = 0;
+    char *pc1 = str5;//pc1操作str5来计数
     memset(pc1,'0',sizeof(char) * a1);
+    //预处理
+    char str5[100];
+    char *pb1 = str5;
+    strcpy(pb1,pb);
     for (;strcmp(pa,pc1);*pc1 += 1)
     {
         //循环相加
-
+        pb1 = sum(pb1,pb);
         //记录循环次数
         if (NULL == strchr(pc1,':'))
         {
@@ -269,9 +278,10 @@ char *mul(char *pa,char *pb)
                 i++;
             }
         }
-        
+        j++;
     }
     printf("%s\n",pa);
-    printf("%s",str3);
+    printf("%s\n",str3);
+    printf("%d\n",j);
     return pd;
 }
