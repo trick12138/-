@@ -326,6 +326,6 @@ char *mul(char *pa,char *pb)
     printf("%s\n",pa);
     printf("%s\n",str3);
     printf("%d\n",j);
-    printf("pd=%s\n",pd);
+    printf("pb1=%s\n",pb1);
     return pd;
 }
