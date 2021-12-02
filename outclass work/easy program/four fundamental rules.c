@@ -242,45 +242,36 @@ char *mul(char *pa,char *pb)
             d1++;
         }
     }
-    //补0
-    i = 0;
-    a3 = sizeof(pc);
-    while (i < (a3 + 1))
-    {
-        if (*(pc+i) >= '0' && *(pc+i) <= '9')
-        {
-            i++;
-            continue;
-        }
-        else
-        {
-            *(pc+i) = '0';
-            i++;
-        }
-    }
-    printf("pc=%s",pc);
     //乘法
     i = 0;
-    printf("%d",pa);
-    for (;strcmp(pa,pc);)
+    char *pc1 = str3;//pc1操作str3来计数
+    memset(pc1,'0',sizeof(char) * a1);
+    for (;strcmp(pa,pc1);*pc1 += 1)
     {
         //循环相加
 
         //记录循环次数
-        *pc += 1;
-        char *pc1 = strchr(pc,':');
-        memset(pc1,'0',sizeof(str3));
-        while(*(pc1 + i) == ':')
+        if (NULL == strchr(pc1,':'))
         {
-            *(pc1 + i) = '0';
-            if (*(pc1+i+1) != ':')
-            {
-                *(pc1 + i +1) += 1;
-                break;
-            }
-        i++;
+            "";
         }
+        else
+        {
+            char *pc2 = strchr(pc1,':');
+            while(*(pc2 + i) == ':')
+            {
+                *(pc2 + i) = '0';
+                if (*(pc2 + i + 1) != ':')
+                {
+                    *(pc2 + i +1) += 1;
+                    break;
+                }
+                i++;
+            }
+        }
+        
     }
+    printf("%s\n",pa);
     printf("%s",str3);
     return pd;
 }
