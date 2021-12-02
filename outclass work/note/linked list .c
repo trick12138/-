@@ -69,7 +69,7 @@ void insertByAppoin(struct Node *headNode,int data,int posData)
     else
     {
         struct Node *newNode = createNode(data);
-        posFrontNode->next;
+        posFrontNode->next = newNode;
         newNode->next = posNode;
     }
 
