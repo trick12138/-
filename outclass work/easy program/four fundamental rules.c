@@ -11,10 +11,10 @@ char *pb1 = str5;//pb1操作str5来保存中间的和
 int main()
 {
     char str1[100] = "87654321";
-    char str2[100] = "9999999";
+    char str2[100] = "9999999";//参数设置
     char *pa = str1;
     char *pb = str2;
-    mul(pa,pb);
+    mul(pa,pb);//乘法测试
 }
 
 //四则运算,加法
@@ -327,5 +327,6 @@ char *mul(char *pa,char *pb)
     printf("%s\n",str3);
     printf("%d\n",j);
     printf("pb1=%s\n",pb1);
+    pd = pb1;
     return pd;
 }
