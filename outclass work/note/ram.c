@@ -8,7 +8,7 @@ int main()
     int n;
     printf("你需要多少字节的空间呢？");
     scanf("%d",&n);
-    char *pa = (char*)malloc(sizeof(char) * n);
+    char *pa = (char*)malloc(sizeof(char) * n);//malloc会返回申请内存的首地址
     for (int i = 0; i < n; i++)
     {
         *(pa + i) = i * 10;
