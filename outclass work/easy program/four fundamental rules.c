@@ -7,7 +7,7 @@ char str4[100];
 char str5[100];
 char str6[100];
 char str7[100];
-char *pc1 = str5;//pc1操作str5来计数
+char *pb1 = str5;//pb1操作str5来保存中间的和
 int main()
 {
     char str1[100] = "87654321";
@@ -20,7 +20,7 @@ int main()
 //四则运算,加法
 char *sum(char *pa,char *pb)
 {
-    int i=0,j=0,p1,p2,d1=0,a1,a2,a3;
+    int i=0,j=0,k=0,p1,p2,d1=0,a1,a2,a3;
     char c;
     char *pc = str3;//str3用来记录和
     char *pd = str4;//str4用来记录进位情况
@@ -121,7 +121,7 @@ char *sum(char *pa,char *pb)
         }
     }
     i = 0;//再再次初始化
-    while (i < a3)
+    while (i <= a3)
     {
         *(pd + i) = '0';
         i++;
@@ -129,7 +129,7 @@ char *sum(char *pa,char *pb)
     //相加
     a4 = a3 + 1;
     a5 = a3 + 1;//这俩用来计数
-    for (i = 0;i <= a4;i++)
+    for (i = 0;i < a4;i++)
     {
         if ((*(pa + i) + *(pb + i)-'0')>='0' && (*(pa + i) + *(pb + i)-'0')<='9')
         {
@@ -141,10 +141,53 @@ char *sum(char *pa,char *pb)
             *(pd + i + 1) = '1';
         }
     }
-    for (i = 0;i <= a4;i++)
+    for (i = 0;i < a4;i++)
     {
         *(pc + i) = *(pc + i) + *(pd + i) - '0';
+        if (NULL == strchr(pc,':'))
+        {
+            "";
+        }
+        else
+        {
+            //满10进1
+            char *pc2 = strchr(pc,':');
+            while(*(pc2 + k) == ':')
+            {
+                *(pc2 + k) = '0';
+                if (*(pc2 + k + 1) != ':')
+                {
+                    *(pc2 + k +1) += 1;
+                    break;
+                }
+                k++;
+            }
+        }
     }
+    //寻位消0,a3为最大位数尾数标号
+    for (int i = a3;;i--)
+    {
+        if (*(pb + i) == '0')
+        {
+            *(pb + i) = '\0';
+        }
+        else
+        {
+            break;
+        }
+    }
+    for (int i = a3;;i--)
+    {
+        if (*(pc + i) == '0')
+        {
+            *(pc + i) = '\0';
+        }
+        else
+        {
+            break;
+        }
+    }
+    
     //初始化
     j = 0,d1 = 0;
     //寻求pc位数
@@ -176,8 +219,8 @@ char *sum(char *pa,char *pb)
             d1++;
         }
     }
-    pc1 = pc;
-    return pc1;
+    pb1 = pc;
+    return pb1;
 }
 
 //四则运算乘法
@@ -257,7 +300,7 @@ char *mul(char *pa,char *pb)
     strcpy(pb1,pb);
     for (;strcmp(pa,pc1);*pc1 += 1)
     {
-        //循环相加
+        //开始循环
         pb1 = sum(pb1,pb);
         //记录循环次数
         if (NULL == strchr(pc1,':'))
@@ -283,5 +326,6 @@ char *mul(char *pa,char *pb)
     printf("%s\n",pa);
     printf("%s\n",str3);
     printf("%d\n",j);
+    printf("pd=%s\n",pd);
     return pd;
 }
