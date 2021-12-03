@@ -74,6 +74,7 @@ void insertByAppoin(struct Node *headNode,int data,int posData)
     }
 
 }
+
 //表头法删除
 void deleteNodeByHead(struct Node *headNode)
 {
@@ -86,6 +87,51 @@ void deleteNodeByHead(struct Node *headNode)
     
     headNode->next = nextNode ->next;
     free(nextNode);
+    nextNode = NULL;
+}
+
+//表尾法删除
+void deleteNodeByTail(struct Node *headNode)
+{
+    struct Node *tailNode = headNode->next;//尾节点
+    struct Node *tailFrontNode = headNode;//尾节点前一个节点
+    if(tailNode == NULL)
+    {
+        printf("链表为NULL,无法删除");
+        return;
+    }
+    while (tailNode->next != NULL)
+    {
+        tailFrontNode = tailNode;
+        tailNode = tailFrontNode->next;
+    }
+    tailFrontNode->next = NULL;
+    free(tailNode);
+    tailNode = NULL;
+}
+
+//指定位置删除
+void deleteByAppoin(struct Node *headNode,int posData)
+{
+    struct Node *posFrontNode = headNode;
+    struct Node *posNode = headNode->next;
+    //移动的节点不为NULL,并且当前节点中的元素不等于查找的元素
+    while(posNode != NULL&&posNode->data != posData)
+    {
+        posFrontNode = posNode;
+        posNode = posFrontNode->next;
+    }
+    //分析posNode的状态
+    if (posNode == NULL)
+    {
+        printf("无法删除\n");
+    }
+    else
+    {
+        posFrontNode->next = posNode->next;
+        free(posNode);
+        posNode = NULL;
+    }
 }
 //打印链表
 void printList(struct Node *headNode)
@@ -123,6 +169,12 @@ int main()
     printList(List);
     //测试表头法删除
     deleteNodeByHead(List);
+    printList(List);
+    //表尾法删除
+    deleteNodeByTail(List);
+    printList(List);
+    //指定位置删除
+    deleteByAppoin(List,4);
     printList(List);
     //结束
     system("pause");
