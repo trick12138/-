@@ -60,6 +60,28 @@ void insertByAppoin(struct Node **list,int cmpdata,int data)
     }
 }
 
+//指定位置删除
+void deleteByAppoin(struct Node **list,int cmpdata)
+{
+    struct Node *frountNode = (*list);
+    struct Node *posNode = (*list)->next;
+    while (posNode != NULL && posNode->data !=cmpdata)
+    {
+        frountNode = frountNode->next;
+        posNode = posNode->next;
+    }
+    //判断是否找到
+    if (posNode == NULL)
+    {
+        printf("未找到指定数据,或者你寻找的数据在表头");
+    }
+    else
+    {
+        frountNode->next = posNode->next;
+        free(posNode);
+        posNode = NULL;
+    }
+}
 int main()
 {
     //创建链表
@@ -71,6 +93,9 @@ int main()
     printList(list);
     //test2
     insertByAppoin(&list,2,100);
+    printList(list);
+    //test3
+    deleteByAppoin(&list,100);
     printList(list);
     system("pause");
     return 0;
