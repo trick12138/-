@@ -294,6 +294,7 @@ char *mul(char *pa,char *pb)
     i = 0,j = 0;
     char *pc1 = str5;//pc1操作str5来计数
     memset(pc1,'0',sizeof(char) * a1);
+    *pc1 = '1';
     //预处理
     char str5[100];
     char *pb1 = str5;
