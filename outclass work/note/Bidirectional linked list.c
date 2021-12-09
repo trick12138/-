@@ -59,6 +59,35 @@ void printListByRight(struct Node *List)
 }
 
 //通过左指针插入
+void insertNodeByHeadLeft(struct Node *List,int data)
+{
+    struct Node *newNode = createNode(data);
+    newNode->data = data;
+    if (List->left == NULL)
+    {
+        List->left = newNode;
+        newNode->right = List;
+    }
+    else
+    {
+        List->left->right = newNode;
+        newNode->left = List->left;
+        newNode->right = List;
+        List->left = newNode;
+    }
+}
+
+//通过左指针打印
+void printListByLeft(struct Node *List)
+{
+    struct Node *pMove = List->left;
+    while(pMove != NULL)
+    {
+        printf("%d-->",pMove->data);
+        pMove = pMove->left;
+    }
+}
+
 int main()
 {
     //创建链表表头
@@ -68,5 +97,11 @@ int main()
     insertNodeByHeadRight(List,2);
     insertNodeByHeadRight(List,3);
     printListByRight(List);
+    printf("\n");
+    //test2
+    insertNodeByHeadLeft(List,100);
+    insertNodeByHeadLeft(List,101);
+    insertNodeByHeadLeft(List,102);
+    printListByLeft(List);
     getchar();
 }
