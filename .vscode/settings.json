@@ -4,6 +4,12 @@
         "string.h": "c",
         "crtdefs.h": "c",
         "_mingw.h": "c",
-        "_mingw_mac.h": "c"
+        "_mingw_mac.h": "c",
+        "stdlib.h": "c",
+        "stdio.h": "c",
+        "cstdio": "c",
+        "type_traits": "c",
+        "typeinfo": "c",
+        "_mingw_print_push.h": "c"
     },
 }
