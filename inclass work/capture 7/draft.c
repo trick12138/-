@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
     scanf("%d,%d",&d,&e);
     z=gcd(d,e);
     n=gmd(d,e);
-    printf("最大公约数：%d\n",z);
-    printf("最小公倍数：%d\n",n);
+    printf("最大公约数:%d\n",z);
+    printf("最小公倍数:%d\n",n);
     return 0;
 }
