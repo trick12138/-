@@ -1,34 +1,36 @@
-/* while(pFrountMove != NULL)
-            {
-                if (pFrountMove->data.hash == dataHashPos)    //hash冲突
-                {
-                    struct skipTable *rFrountMove = pFrountMove;
-                    if (rFrountMove->Rnext == NULL)     //若为空
-                    {
-                        rFrountMove->Rnext = newSkipNode;
-                        return;
-                    }
-                    else    //若不为空则找
-                    {
-                        struct skipTable *rMove = rFrountMove->Rnext;
-                        while(rMove != NULL && newSkipNode->data.hash > rMove->data.hash)
-                        {
-                            rMove = rMove->Rnext;
-                            rFrountMove = rFrountMove->Rnext;
-                        }
-                        rFrountMove->Rnext = newSkipNode;
-                        newSkipNode->Rnext = rMove;
-                        return;
-                    }
-                }
-                if (dataHashPos < pFrountMove->data.hash)
-                {
-                    pFrountMove->next = newSkipNode;
-                    newSkipNode->next = pMove;
-                    return;
-                }
-                pFrountMove = pFrountMove->next;
-                pMove = pMove->next;
-            }
-            pFrountMove->next = newSkipNode;  //最后没找到 */
-#define Line 108
+#include <stdio.h>
+#include <stdlib.h>
+struct num
+{
+    int average;
+    int max;
+    int min;
+};
+
+struct num *average(float *array,int n)
+{
+    struct num *amm = (struct num*)malloc(sizeof(struct num));
+    float sum = 0;
+    amm->max = array[0];
+    amm->min = array[0];
+    for (int i = 0; i < n; i++)
+    {
+        if (amm->max < array[i])
+            amm->max = array[i];
+        if (amm->min > array[i])
+            amm->min = array[i];
+        sum = sum + array[i];
+    }
+    amm->average = sum / n;
+    return amm;
+}
+
+int main()
+{
+    float array[5] = {1,2,3,4,5};
+    int n = sizeof(array) / sizeof(array[0]);
+    struct num *data = average(array,n);
+    printf("���ֵ%d,��Сֵ%d,ƽ��ֵ%d",data->max,data->min,data->average);
+    system("pause");
+    return 0;
+}

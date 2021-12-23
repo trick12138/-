@@ -3,8 +3,8 @@
 
 int main()
 {
-    int i,j,k,x;
-    printf("%d",x = (i = 4,j = 16,k = 42));
+    int x=3,y=4,z=4;
+    printf("%d",!((x<y)&&!z||1));
     system("pause");
     return 0;
 }
