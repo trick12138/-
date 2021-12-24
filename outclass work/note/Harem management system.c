@@ -165,7 +165,6 @@ void fileRead(struct Node *List)
 //文件写入
 void fileWrite(struct Node *List)
 {
-    //写入功能
     //打开文件
     FILE *fp = fopen("girls'information.txt","a+");
     //指针重置
