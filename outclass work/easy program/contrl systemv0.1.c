@@ -196,11 +196,18 @@ void printList(struct skipList *list)
     }
     struct skipTable *pMove = list->headNode;
     struct skipTable *rMove = list->headNode;
+    while (rMove != NULL)
+    {
+        printf(" 学号|名字|分数|");
+        rMove = rMove->Rnext;
+    }
+    putchar('\n');
+    rMove = pMove;
     while(pMove != NULL)
     {
         while(rMove != NULL)
         {
-            printf("%d %s %d|",rMove->data.hash,rMove->data.name,rMove->data.chinese);
+            printf("%2d %8s %3d|",rMove->data.hash,rMove->data.name,rMove->data.chinese);
             rMove = rMove->Rnext;
         }
         printf("\n");
@@ -334,7 +341,7 @@ void fileRead(struct skipList *list)
     //暂存信息
     struct dataType temp;
     //打开文件
-    FILE *fp = fopen("student's-grade1.txt","a+");
+    FILE *fp = fopen("student's-grade.txt","r");
     //文档为空时的考虑
     if (fgetc(fp) == EOF)
     {
@@ -360,7 +367,7 @@ void fileRead(struct skipList *list)
 void fileWrite(struct skipList *list)
 {
     //打开文件
-    FILE *fp = fopen("student's-grade.txt","a+");
+    FILE *fp = fopen("student's-grade.txt","w");
     //若无数据
     if (list->headNode == NULL)
     {
@@ -370,9 +377,9 @@ void fileWrite(struct skipList *list)
     //指针重置
     struct skipTable *pMove = list->headNode;
     struct skipTable *pRMove = list->headNode;
-    while (pMove->next != NULL)
+    while (pMove != NULL)
     {
-        while (pRMove->Rnext != NULL)
+        while (pRMove != NULL)
         {
             fprintf(fp,"%d ",pRMove->data.hash);
             fputs(pRMove->data.name,fp);
@@ -387,9 +394,18 @@ void fileWrite(struct skipList *list)
     
 }
 
+//操作帮助
+void help()
+{
+    printf("文件的读取和写入会在程序当前目录下生成一个叫student's-grade.txt的文件\n");
+    printf("文件的读取会自动排序\n");
+    printf("2021/12/24\n");
+}
+
 //操作菜单
 void screen()
 {
+    printf("---成绩管理系统v0.1---\n");
     printf("------0.退出程序------\n");
     printf("------1.插入成员------\n");
     printf("------2.打印跳表------\n");
@@ -429,6 +445,9 @@ void select(struct skipList *list)
         break;
     case 5:
         fileWrite(list);
+        break;
+    case 6:
+        help();
         break;
     default:
         printf("你的选择有误");

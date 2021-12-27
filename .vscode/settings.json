@@ -10,6 +10,8 @@
         "cstdio": "c",
         "type_traits": "c",
         "typeinfo": "c",
-        "_mingw_print_push.h": "c"
+        "_mingw_print_push.h": "c",
+        "fstream": "c",
+        "iostream": "c"
     },
 }
