@@ -45,10 +45,6 @@ struct skipList *createSkipTable(int divisor)
     return list;
 }
 
-/*
-    文件的读取与写入
-*/
-
 //通过hash值插入,并且排序
 void insertByHash(struct skipList *list,struct dataType data)
 {
