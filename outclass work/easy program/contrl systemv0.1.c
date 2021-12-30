@@ -66,51 +66,21 @@ void insertByHash(struct skipList *list,struct dataType data)
         {
             newSkipNode->next = list->headNode;
             list->headNode = newSkipNode;
+            list->size++;
             return;
         }
-        if (dataHash < pMove->data.hash % list->divisor && pMove->Rnext != NULL)
+        if (dataHash < pMove->data.hash % list->divisor && pMove->Rnext != NULL)    //若插入的元素hash值比第一个还小且其右边有节点
         {
             newSkipNode->next = list->headNode;
             newSkipNode->Rnext = pMove->Rnext;
             list->headNode->next = newSkipNode;
             pMove->next = NULL;
+            list->size++;
             return;
         }
         
-        while (pMove->next != NULL && dataHash >= pMove->next->data.hash % list->divisor )  //查找
+        while (pMove->next != NULL && dataHash >= pMove->next->data.hash % list->divisor )  //查找元素
         {
-            if (dataHash == pMove->data.hash % list->divisor)   //如果hash冲突
-            {
-                if (pMove->Rnext == NULL)
-                {
-                    pMove->Rnext = newSkipNode;
-                    return;
-                }
-                else if (newSkipNode->data.hash < pMove->data.hash)
-                {
-                    newSkipNode->Rnext = pMove;
-                    newSkipNode->next = pMove->next;
-                    pFMove->next = newSkipNode;
-                    return;
-                }
-                else
-                {
-                    struct skipTable *pRMove = pMove->Rnext;
-                    while(pRMove != NULL && newSkipNode->data.hash < pRMove->next->data.hash)
-                    {
-                        if (pRMove->Rnext->data.hash == newSkipNode->data.hash)     //如果hash值相同
-                        {
-                            strcpy(pRMove->Rnext->data.name,newSkipNode->data.name);
-                            pRMove->Rnext->data.chinese = newSkipNode->data.chinese;
-                            return;
-                        }
-                        pRMove = pRMove->Rnext;
-                    }
-                    newSkipNode->Rnext = pRMove->Rnext;
-                    pRMove->Rnext = newSkipNode;
-                    return;
-                }
-            }
             pMove = pMove->next;
             if (pFMove != NULL)
                 pFMove = pFMove->next;
@@ -126,12 +96,13 @@ void insertByHash(struct skipList *list,struct dataType data)
                 pMove->data.chinese = newSkipNode->data.chinese;
                 return;
             }
-            if (pMove == list->headNode && newSkipNode->data.hash < pMove->data.hash)    //且在头节点
+            if (pMove == list->headNode && newSkipNode->data.hash < pMove->data.hash)    //且在头节点,hash值小于头节点
             {
                 newSkipNode->Rnext = pMove;
                 newSkipNode->next = pMove->next;
                 list->headNode = newSkipNode;
                 pMove->next = NULL;
+                list->size++;
                 return;
             }
             if (pMove->Rnext == NULL)   //若pMove右节点为空
@@ -139,29 +110,32 @@ void insertByHash(struct skipList *list,struct dataType data)
                 if (newSkipNode->data.hash > pMove->data.hash)      //若pMove的hash值小于插入节点的
                 {
                     pMove->Rnext = newSkipNode;
+                    list->size++;
                     return;
                 }
                 else        //若pMove的hash值大于插入节点的
-                {
-                    newSkipNode->next = pMove->next;    //不在头节点
-                    newSkipNode->Rnext = pMove;
-                    pFMove->next = newSkipNode;
-                    pMove->next = NULL;
-                    return;
-                }
-            }
-            else
-            {
-                struct skipTable *pRMove = pMove;
-                if (newSkipNode->data.hash < pMove->data.hash)
                 {
                     newSkipNode->next = pMove->next;
                     newSkipNode->Rnext = pMove;
                     pFMove->next = newSkipNode;
                     pMove->next = NULL;
+                    list->size++;
                     return;
                 }
-                while(pRMove->Rnext != NULL && newSkipNode->data.hash >= pRMove->Rnext->data.hash)
+            }
+            else    //若pMove右节点不为空我们就去找
+            {
+                struct skipTable *pRMove = pMove;
+                if (newSkipNode->data.hash < pMove->data.hash)  //新节点的hash值小于pMove的
+                {
+                    newSkipNode->next = pMove->next;
+                    newSkipNode->Rnext = pMove;
+                    pFMove->next = newSkipNode;
+                    pMove->next = NULL;
+                    list->size++;
+                    return;
+                }
+                while(pRMove->Rnext != NULL && newSkipNode->data.hash >= pRMove->Rnext->data.hash)  //循环查找
                 {
                     if (pRMove->Rnext->data.hash == newSkipNode->data.hash)   //当找到的节点存在冲突
                     {
@@ -171,13 +145,15 @@ void insertByHash(struct skipList *list,struct dataType data)
                     }
                     pRMove = pRMove->Rnext;
                 }
-                newSkipNode->Rnext = pRMove->Rnext;
+                newSkipNode->Rnext = pRMove->Rnext;     //若pRMove到最后则插入最后
                 pRMove->Rnext = newSkipNode;
+                list->size++;
                 return;
             }
         }
-        newSkipNode->next = pMove->next;
+        newSkipNode->next = pMove->next;    //若pMove到最后则插入最后
         pMove->next = newSkipNode;
+        list->size++;
         return;
     }
 }
@@ -221,14 +197,14 @@ void deleteByHash(struct skipList *list,int hash)
         return;
     }
 
-    //求取hash值
+    //求取hash值,做准备
     int dataHash = hash % list->divisor;
     struct skipTable *pMove = list->headNode;
     struct skipTable *pRMove = list->headNode;
     struct skipTable *pFMove = NULL;
 
-    //先查找是否存在
-    if (pMove == NULL)
+    //先纵向查找
+    if (pMove == NULL)  //判断链表是否为空
     {
         printf("未找到指定元素,无法删除");
         return;
@@ -237,11 +213,7 @@ void deleteByHash(struct skipList *list,int hash)
     {
         if (pMove->next == NULL)    //只有一个节点
         {
-            if (dataHash == pMove->data.hash % list->divisor)
-            {
-                "";
-            }
-            else
+            if (dataHash != pMove->data.hash % list->divisor)   //这个节点不是就算了
             {
                 printf("未找到指定元素,无法删除");
                 return;
@@ -249,7 +221,7 @@ void deleteByHash(struct skipList *list,int hash)
         }
         else    //至少两个节点
         {
-            while(pMove->next != NULL && dataHash != pMove->data.hash % list->divisor)    //查找
+            while(pMove->next != NULL && dataHash != pMove->data.hash % list->divisor)    //纵向查找
             {
                 pMove = pMove->next;
                 if (pFMove != NULL)
@@ -260,72 +232,90 @@ void deleteByHash(struct skipList *list,int hash)
         }
     }
 
-    //删除
-    if (pMove == pRMove)    //找到的在第一个节点
+    //找到节点后做删除
+    if (dataHash != pMove->data.hash % list->divisor)   //如果没找到
     {
-        if (pMove->data.hash == hash)   //且要删除的元素就是头部
+        printf("未找到指定元素,无法删除");
+        return;
+    }
+    else    //找到了
+    {
+        if (pMove == list->headNode)    //找到的就在头节点
         {
-            if (pMove->Rnext == NULL)   //且右边没有元素
+            if (hash == pMove->data.hash && pMove->Rnext == NULL)   //找到的不仅在头节点且要删除的就是头节点的第一个元素且其右边没有元素
             {
                 list->headNode = pMove->next;
-                free(pRMove);
-                pRMove = NULL;
+                free(pMove);
+                list->size--;
                 return;
             }
-            else    //且右边有元素
+            else if(hash == pMove->data.hash && pMove->Rnext != NULL)   //找到的不仅是头节点且其右边有元素
             {
-                pMove->Rnext->next = pMove->next;
                 list->headNode = pMove->Rnext;
-                free(pRMove);
-                return;
-            }
-        }
-    }
-    else    //至少两个节点
-    {
-        pRMove = pMove;
-        if (dataHash != pMove->data.hash % list->divisor)       //没找到节点
-        {
-            printf("未找到指定元素,无法删除");
-            return;
-        }
-        if (hash == pMove->data.hash)   //要删除的元素在纵列的头节点
-        {
-            if (pMove->Rnext == NULL)       //只有一个节点
-            {
-                pFMove->next = pMove->next;
-                free(pMove);
-                pMove = NULL;
-                return;
-            }
-            else        //纵列还有其他节点
-            {
                 pMove->Rnext->next = pMove->next;
-                pFMove->next = pMove->Rnext;
                 free(pMove);
-                pMove = NULL;
+                list->size--;
                 return;
             }
-        }
-        else
-        {
-            pRMove = pRMove->Rnext;
-            while (pRMove->next != NULL && pRMove->data.hash != hash)   //寻找
+            while (pRMove->Rnext != NULL && pRMove->data.hash != hash)   //找到的就在头节点且不是第一个节点我们就往后面找,以pMove为pRmove的前置节点
             {
-                pMove = pMove->Rnext;
+                if (pMove != pRMove)
+                    pMove = pMove->Rnext;
                 pRMove = pRMove->Rnext;
             }
-            if (pRMove->data.hash != hash)  //没找到
+            if (hash != pRMove->data.hash || pMove == pRMove)  //没找到节点
             {
                 printf("未找到指定元素,无法删除");
                 return;
             }
-            else
+            else    //找到了我们就做删除工作
             {
                 pMove->Rnext = pRMove->Rnext;
                 free(pRMove);
-                pRMove = NULL;
+                list->size--;
                 return;
+            }
+        }
+        else    //找到的不在头节点
+        {
+            if (hash == pMove->data.hash)   //找到了且就是第一个节点
+            {
+                if (pMove->Rnext == NULL)   //找到了且其右边没有元素
+                {
+                    pFMove->next = pMove->next;
+                    free(pMove);
+                    list->size--;
+                    return;
+                }
+                else    //找到了且其右边有元素
+                {
+                    pFMove->next = pMove->Rnext;
+                    pMove->Rnext->next = pMove->next;
+                    free(pMove);
+                    list->size--;
+                    return;
+                }
+            }
+            else    //找到了且不在第一个节点
+            {
+                while(pRMove->Rnext != NULL && pRMove->data.hash != hash)
+                {
+                    if (pMove != pRMove)
+                        pMove = pMove->Rnext;
+                    pRMove = pRMove->Rnext;
+                }
+                if (hash != pRMove->data.hash || pMove == pRMove)  //没找到节点
+                {
+                    printf("未找到指定元素,无法删除");
+                    return;
+                }
+                else    //找到了我们就做删除工作
+                {
+                    pMove->Rnext = pRMove->Rnext;
+                    free(pRMove);
+                    list->size--;
+                    return;
+                }
             }
         }
     }
