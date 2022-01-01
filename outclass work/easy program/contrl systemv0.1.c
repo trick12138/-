@@ -17,7 +17,7 @@ struct skipTable
     struct skipTable *Rnext;
 };
 
-//创建跳表
+//创建跳表节点
 struct skipTable *createSkipNode(struct dataType data)
 {
     struct skipTable *newSkipNode = (struct skipTable*)malloc(sizeof(struct skipTable));
@@ -62,23 +62,13 @@ void insertByHash(struct skipList *list,struct dataType data)
     {
         struct skipTable *pMove = list->headNode;
         struct skipTable *pFMove = NULL;
-        if (dataHash < pMove->data.hash % list->divisor && pMove->Rnext == NULL)    //若插入的元素hash值比第一个节点还小
+        if (dataHash < pMove->data.hash % list->divisor)    //若插入的元素hash值比第一个节点还小
         {
             newSkipNode->next = list->headNode;
             list->headNode = newSkipNode;
             list->size++;
             return;
         }
-        if (dataHash < pMove->data.hash % list->divisor && pMove->Rnext != NULL)    //若插入的元素hash值比第一个还小且其右边有节点
-        {
-            newSkipNode->next = list->headNode;
-            newSkipNode->Rnext = pMove->Rnext;
-            list->headNode->next = newSkipNode;
-            pMove->next = NULL;
-            list->size++;
-            return;
-        }
-        
         while (pMove->next != NULL && dataHash >= pMove->next->data.hash % list->divisor )  //查找元素
         {
             pMove = pMove->next;
@@ -385,7 +375,7 @@ void help()
 {
     printf("文件的读取和写入会在程序当前目录下生成一个叫student's-grade.txt的文件\n");
     printf("文件的读取会自动排序\n");
-    printf("2021/12/24\n");
+    printf("2021/12/30\n");
 }
 
 //操作菜单
