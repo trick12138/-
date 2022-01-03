@@ -71,11 +71,8 @@ void insertByHash(struct skipList *list,struct dataType data)
         }
         while (pMove->next != NULL && dataHash >= pMove->next->data.hash % list->divisor )  //查找元素
         {
+            pFMove = pMove;
             pMove = pMove->next;
-            if (pFMove != NULL)
-                pFMove = pFMove->next;
-            if (pMove == list->headNode->next)
-                pFMove = list->headNode;
         }
 
         if (dataHash == pMove->data.hash % list->divisor)   //在找到节点后查看是否存在hash冲突
@@ -213,11 +210,8 @@ void deleteByHash(struct skipList *list,int hash)
         {
             while(pMove->next != NULL && dataHash != pMove->data.hash % list->divisor)    //纵向查找
             {
+                pFMove = pMove;
                 pMove = pMove->next;
-                if (pFMove != NULL)
-                    pFMove = pFMove->next;
-                if (pMove == list->headNode->next)
-                    pFMove = list->headNode;
             }
         }
     }
@@ -249,8 +243,7 @@ void deleteByHash(struct skipList *list,int hash)
             }
             while (pRMove->Rnext != NULL && pRMove->data.hash != hash)   //找到的就在头节点且不是第一个节点我们就往后面找,以pMove为pRmove的前置节点
             {
-                if (pMove != pRMove)
-                    pMove = pMove->Rnext;
+                pMove = pRMove;
                 pRMove = pRMove->Rnext;
             }
             if (hash != pRMove->data.hash || pMove == pRMove)  //没找到节点
@@ -290,8 +283,7 @@ void deleteByHash(struct skipList *list,int hash)
             {
                 while(pRMove->Rnext != NULL && pRMove->data.hash != hash)
                 {
-                    if (pMove != pRMove)
-                        pMove = pMove->Rnext;
+                    pMove = pRMove;
                     pRMove = pRMove->Rnext;
                 }
                 if (hash != pRMove->data.hash || pMove == pRMove)  //没找到节点
