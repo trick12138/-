@@ -147,18 +147,90 @@ LPNODE searchBST(LPBST tree,int first)
 //二叉搜索树的删除
 void deleteByFirst(LPBST tree,int first)
 {
-    if (tree->root->data.first == first)
+    //定义指针
+    LPNODE pMove = tree->root;
+    LPNODE pParentMove = NULL;
+    //查找
+    while (pMove != NULL && pMove->data.first != first)
     {
-        //创建一个新的节点
-        LPNODE newNode = (LPNODE)malloc(sizeof(NODE));
-        LPNODE pMove = tree->root->Left;
-        while (pMove->Right == NULL)
+        pParentMove = pMove;
+        if (first < pMove->data.first)
         {
-            
+            pMove = pMove->Left;
         }
-        
+        else if (first > pMove->data.first)
+        {
+            pMove = pMove->Right;
+        }
+        else
+        {
+            break;
+        }
     }
-    
+    //没找到指定位置
+    if (pMove == NULL)
+    {
+        printf("未找到指定位置,无法删除");
+        system("pause");
+        return;
+    }
+    //删除节点的左右节点都不为空
+    if (pMove->Left != NULL && pMove->Right != NULL)
+    {
+        LPNODE moveNode = pMove->Left;
+        LPNODE moveNodeParent = pMove;
+        //找到最右边放上去
+        while (moveNode->Right != NULL)
+        {
+            moveNodeParent = moveNode;
+            moveNode = moveNode->Right;
+        }
+        LPNODE newNode = createTreeNode(moveNode->data);
+        newNode = pMove->Left;
+        newNode = pMove->Right;
+        //分类讨论删除的节点
+        if (pParentMove == NULL)
+            tree->root = newNode;
+        else if (pMove == pParentMove->Left)
+            pParentMove->Left = newNode;
+        else
+            pParentMove->Right = newNode;
+        //调整二叉树
+        //调整删除的指针
+        if (moveNodeParent == pMove)
+        {
+            pParentMove = newNode;
+        }
+        else
+        {
+            pParentMove = moveNodeParent;
+        }
+        free(pMove);
+        pMove = moveNode;
+    }
+    LPNODE sNode = NULL;
+    //如果删除节点左右存在节点,记录其节点的下一个节点
+    if (pMove->Left != NULL)
+        sNode = pMove->Left;
+    else
+        sNode = pMove->Right;
+    if (tree->root == pMove)
+    {
+        tree->root = sNode;
+    }
+    else
+    {
+        if (pMove == pParentMove->Left)
+        {
+            pParentMove->Left = sNode;
+        }
+        else
+        {
+            pParentMove->Right = sNode;
+        }
+    }
+    free(pMove);
+    tree->treeSize--;
 }
 
 int main()
@@ -175,6 +247,9 @@ int main()
     //查找
     printf("查找first为79的数据:");
     printNode(searchBST(tree,1));
+    //删除
+    deleteByFirst(tree,47);
+    midOrder(tree->root);
     system("pause");
     return 0;
 }
