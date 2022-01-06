@@ -9,7 +9,7 @@ struct dataType
     int chinese;
 };
 
-//二叉树节点描述
+//二叉树结点描述
 struct treeNode
 {
     struct dataType data;
@@ -33,7 +33,7 @@ struct tree *createTree()
     return binaryTree;
 }
 
-//二叉树节点的创建
+//二叉树结点的创建
 struct treeNode *createTreeNode(struct dataType data)
 {
     struct treeNode *newTreeNode = (struct treeNode*)malloc(sizeof(struct treeNode));
@@ -47,11 +47,11 @@ struct treeNode *createTreeNode(struct dataType data)
 void insertBychinese(struct tree *Tree,struct dataType data)
 {
     struct treeNode *newNode = createTreeNode(data);
-    if (Tree->root == NULL)     //若没有节点就创建根节点
+    if (Tree->root == NULL)     //若没有结点就创建根结点
     {
         Tree->root = newNode;
     }
-    else    //若有节点就按数据大小寻找插入位置
+    else    //若有结点就按数据大小寻找插入位置
     {
         struct treeNode *pMove = Tree->root;
         struct treeNode *pFMove = NULL;
@@ -90,7 +90,7 @@ void insertBychinese(struct tree *Tree,struct dataType data)
 }
 
 
-//打印节点
+//打印结点
 void printNode(struct treeNode *Node)
 {
     printf("%8s %3d\n",Node->data.name,Node->data.chinese);
@@ -166,7 +166,7 @@ void deleteTreeNodeByChinese(struct tree *Tree,int chinese)
             break;
         }
     }
-    if (pMove == NULL)      //没找到节点
+    if (pMove == NULL)      //没找到结点
     {
         printf("未找到指定位置,无法删除");
         system("pause");
@@ -183,7 +183,7 @@ void deleteTreeNodeByChinese(struct tree *Tree,int chinese)
                 nodeFMove = nodeMove;
                 nodeMove = nodeMove->rightChild;
             }
-            //找到节点放上去
+            //找到结点放上去
             struct treeNode *newNode = createTreeNode(nodeMove->data);
             //做连接
             if (pMove == pFMove->leftChild)
@@ -199,27 +199,21 @@ void deleteTreeNodeByChinese(struct tree *Tree,int chinese)
             //改变指针位置,做相同的事情
             pMove = nodeMove;
         }
-        //记录节点
+        //记录结点
         struct treeNode *sNode = pMove;
-        //如果删除节点的左右有节点就记录下来
+        //如果删除结点的左右有结点就记录下来
         if (pMove->leftChild != NULL)
             sNode = pMove->leftChild;
         else if (pMove->rightChild != NULL)
             sNode = pMove->rightChild;
         if (Tree->root == pMove)
-        {
             Tree->root = sNode;
-        }
         else
         {
             if (pMove == pFMove->leftChild)
-            {
                 pFMove->leftChild = sNode;
-            }
             else
-            {
                 pFMove->rightChild = sNode;
-            }
         }
         free(pMove);
         Tree->size--;
