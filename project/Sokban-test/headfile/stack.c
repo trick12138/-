@@ -46,6 +46,9 @@ void push(LPSTACK stack,DATA SPOSData[3])   //入栈
 
 void pop(LPSTACK stack)                 //出栈
 {
+    //安全性考虑
+    if (stack->headSPOS == NULL)
+        return;
     LPSPOS SPOS = stack->headSPOS;
     stack->headSPOS = stack->headSPOS->next;
     free(SPOS);
