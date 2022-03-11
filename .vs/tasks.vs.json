@@ -1,0 +1,10 @@
+{
+  "version": "0.2.1",
+  "tasks": [
+    {
+      "taskLabel": "任务-normoal exception handing",
+      "appliesTo": "C++/learning-note/8.exception handling/task 2/normoal exception handing.cpp",
+      "type": "launch"
+    }
+  ]
+}

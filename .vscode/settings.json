@@ -51,6 +51,12 @@
         "streambuf": "cpp",
         "stack": "cpp",
         "stack.c": "cpp",
-        "cstring": "cpp"
+        "cstring": "cpp",
+        "iomanip": "cpp",
+        "list": "cpp",
+        "functional": "cpp",
+        "iterator": "cpp",
+        "numeric": "cpp",
+        "random": "cpp"
     },
 }
