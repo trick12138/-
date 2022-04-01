@@ -1,4 +1,5 @@
 #include <iostream>
+#include <algorithm>
 
 using namespace std;
 /*
@@ -48,6 +49,18 @@ void printInfo()
     cout << "ILoveYou" << endl;
 }
 
+class testCatchThis
+{
+public:
+    testCatchThis(string name,int age) :name(name) ,age(age){}
+    void print()
+    {
+        cout << "Catch this:" << [this]()->int {return this->age;}() << endl;
+    }
+    string name;
+    int age;
+};
+
 int main()
 {
     print(1,2);
@@ -56,8 +69,25 @@ int main()
     []{cout << "ILoveYou" << endl;}();
     auto pFunc = [] {cout << "IMissyou" << endl;};
     pFunc();
-
-    
-
+    //值的方式捕获：函数的调用使用的外部变量，不会因为它的改变改变，用的还是原来捕获的值
+    int data = 0;
+    auto pData = [=] {cout << data << endl;};
+    cout << "第一次调用:";
+    pData();
+    data = 123;
+    cout << "第二次调用:";
+    pData();
+    //用引用的方式：函数调用的时候，使用的值跟随变量的改变而改变
+    auto pValue = [&] {cout << data << endl;};
+    data = 1;
+    cout << "No.1: ";
+    pValue();
+    cout << "No.2: ";
+    data = 1111;
+    pValue();
+    testCatchThis testObject("MM",18);
+    testObject.print();
+    int array[3] = {1,2,3};
+    for_each(array,array + 3, [](int a) {cout << a << "\t";});
     return 0;
 }
