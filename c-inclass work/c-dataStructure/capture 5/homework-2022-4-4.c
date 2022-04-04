@@ -129,8 +129,10 @@ void deleteByNo(LPNODE *L)
     //找到了且在第一个结点
     if (pFMove == NULL && pMove->data.no == no)
     {
+        pFMove = (*L)->next;
         free(pMove);
         pMove = NULL;
+        (*L) = pFMove;
         return;
     }
     
